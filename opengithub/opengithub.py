@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import sys
 import webbrowser
 
 def parse_arguments():
@@ -39,8 +40,8 @@ def main():
         with open(git_config_path) as f:
             url = extract_github_address(f)
             if not url:
-                print 'Aw, not on GitHub.'
-                sys.exit(1)
+                print 'Aw, this project is not on GitHub.'
+                sys.exit(0)
             if args.test:
                 print 'GitHub url:'
                 print '\t' + url
