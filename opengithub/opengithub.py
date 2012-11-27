@@ -23,10 +23,10 @@ def extract_github_address(f):
         on_github_http = line.find('https://github.com/')
         if on_github_ssh > 0:
             project_url = line[on_github_ssh + len('git@github.com') + 1:]
-            url = 'https://github.com/' + project_url
+            url = 'https://github.com/' + project_url.strip().strip('.git')
         elif on_github_http > 0:
             project_url = line[on_github_http + len('https://github.com/'):]
-            url = 'https://github.com/' + project_url
+            url = 'https://github.com/' + project_url.strip().strip('.git')
     return url
 
 def main():
@@ -47,9 +47,12 @@ def main():
     else:
         with open(git_config_path) as f:
             url = extract_github_address(f)
+            print url
             if not url:
                 print 'Aw, this project is not on GitHub.'
                 sys.exit(0)
+            if args.issues:
+                url += '/issues/'
             if args.test:
                 print 'GitHub url:'
                 print '\t' + url
