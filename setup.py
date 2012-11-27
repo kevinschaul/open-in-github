@@ -18,7 +18,7 @@ setup(
     'Natural Language :: English',
     'Operating System :: Unix',
     'Programming Language :: Python',
-    'Topci :: Software Development',
+    'Topic :: Software Development',
     ],
     packages=[
     'opengithub',

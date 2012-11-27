@@ -4,11 +4,14 @@ A shortcut to your project on GitHub.com
 
 # Setup
 
-    pip install open-github
+    pip install opengithub
 
 # Usage
+From inside a project under git versioning:
 
     $ opengithub
 
-That simple.
+A browser will open to the GitHub page of your project.
+
+It's that simple.
 
