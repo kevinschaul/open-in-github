@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='opengithub',
-    version='0.1.0',
+    version='0.1.1',
     author='Kevin Schaul',
     author_email='kevin.schaul@gmail.com',
     url='http://www.kevinschaul.com',
