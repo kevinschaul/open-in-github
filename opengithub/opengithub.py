@@ -31,11 +31,19 @@ def extract_github_address(f):
 
 def main():
     args = parse_arguments()
-    cwd = os.getcwd()
-    git_config_path = cwd + '/.git/config'
-    under_git = os.path.isfile(git_config_path)
+
+    # Check each directory for a .git folder, from current working directory
+    # to the root.
+    current_dir = os.getcwd()
+    under_git = False
+    while not under_git and current_dir != '/': #TODO This is Unix-specific
+        git_config_path = current_dir + '/.git/config'
+        under_git = os.path.isfile(git_config_path)
+        current_dir = os.path.dirname(current_dir)
+
     if not under_git:
         print 'This directory does not appear to be under git versioning.'
+        sys.exit(0)
     else:
         with open(git_config_path) as f:
             url = extract_github_address(f)
