@@ -47,7 +47,6 @@ def main():
     else:
         with open(git_config_path) as f:
             url = extract_github_address(f)
-            print url
             if not url:
                 print 'Aw, this project is not on GitHub.'
                 sys.exit(0)
