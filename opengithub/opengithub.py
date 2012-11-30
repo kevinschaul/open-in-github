@@ -7,7 +7,10 @@ import webbrowser
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--issues', dest='issues', action='store_true',
+    subpage = parser.add_mutually_exclusive_group()
+    subpage.add_argument('-c', '--commits', dest='commits', action='store_true',
+        help='Open to the GitHub Commits page (for master branch)')
+    subpage.add_argument('-i', '--issues', dest='issues', action='store_true',
         help='Open to the GitHub issues page')
     parser.add_argument('-t', '--test', dest='test', action='store_true',
         help='Print out the url instead of browsing to it')
@@ -52,6 +55,8 @@ def main():
                 sys.exit(0)
             if args.issues:
                 url += '/issues/'
+            if args.commits:
+                url += '/commits/master'
             if args.test:
                 print 'GitHub url:'
                 print '\t' + url
