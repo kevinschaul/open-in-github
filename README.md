@@ -9,17 +9,17 @@ A shortcut to your project on GitHub.com
 ## Usage
 From inside a project under git versioning:
 
-    $ opengithub
+    $ git-open
 
 A browser will open to the GitHub page of your project.
 
 To go directly to the issues page:
 
-    $ opengithub -i
+    $ git-open -i
 
 To view all commands:
 
-    $ opengithub --help
+    $ git-open --help
 
 It's that simple.
 
