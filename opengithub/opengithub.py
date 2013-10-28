@@ -39,8 +39,8 @@ def main():
     # to the root.
     current_dir = os.getcwd()
     under_git = False
-    while not under_git and current_dir != '/': #TODO This is Unix-specific
-        git_config_path = current_dir + '/.git/config'
+    while not under_git and not os.path.ismount(current_dir):
+        git_config_path = os.path.join(current_dir, '.git', 'config')
         under_git = os.path.isfile(git_config_path)
         current_dir = os.path.dirname(current_dir)
 
