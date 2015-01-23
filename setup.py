@@ -10,18 +10,18 @@ setup(
     long_description='Check out the project on GitHub for the latest information <http://github.com/kevinschaul/open-in-github>',
     license='MIT',
     classifiers=[
-    'Development Status :: 4 - Beta',
-    'Environment :: Console',
-    'Framework :: Django',
-    'Intended Audience :: Developers',
-    'License :: OSI Approved :: MIT License',
-    'Natural Language :: English',
-    'Operating System :: Unix',
-    'Programming Language :: Python',
-    'Topic :: Software Development',
+        'Development Status :: 4 - Beta',
+        'Environment :: Console',
+        'Framework :: Django',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Operating System :: Unix',
+        'Programming Language :: Python',
+        'Topic :: Software Development',
     ],
     packages=[
-    'opengithub',
+        'opengithub',
     ],
     entry_points = {
         'console_scripts': [
