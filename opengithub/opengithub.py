@@ -2,6 +2,8 @@
 
 import argparse
 import os
+import re
+import subprocess
 import sys
 import webbrowser
 
@@ -32,6 +34,39 @@ def extract_github_address(f):
             url = 'https://github.com/' + project_url.strip().strip('.git')
     return url
 
+def get_current_branch():
+    """
+    Returns the current git branch
+    """
+    stdout = execute_git_status()
+    return get_branch_from_git_status_output(stdout)
+
+def get_branch_from_git_status_output(stdout):
+    """
+    Returns the branch given output of the command
+    `git status --short --branch`.
+    """
+    pattern = r'^## ([a-zA-Z0-9\-_]+)'
+    match = re.match(pattern, stdout)
+    if match:
+        return match.groups()[0]
+
+def execute_git_status():
+    """
+    Returns the stdout of the command `git status --short --branch`.
+    """
+    (stdout, stderr) = run_shell_command('git status --short --branch')
+    return stdout
+
+def run_shell_command(command):
+    """
+    Runs `command` in a shell, returning any output.
+    """
+    p = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE)
+    (stdout, stderr) = p.communicate()
+    return (stdout, stderr)
+
 def main():
     args = parse_arguments()
 
@@ -49,14 +84,22 @@ def main():
         sys.exit(0)
     else:
         with open(git_config_path) as f:
-            url = extract_github_address(f)
-            if not url:
+            base_url = extract_github_address(f)
+            url = base_url
+            branch = get_current_branch()
+            if not base_url:
                 print 'Aw, this project is not on GitHub.'
                 sys.exit(0)
+
+            if branch != 'master':
+                url = base_url + '/tree/%s' % branch
+
             if args.issues:
-                url += '/issues/'
+                url = base_url + '/issues/'
+
             if args.commits:
-                url += '/commits/master'
+                url = base_url + '/commits/%s' % branch
+
             if args.test:
                 print 'GitHub url:'
                 print '\t' + url
