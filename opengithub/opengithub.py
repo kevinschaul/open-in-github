@@ -14,6 +14,8 @@ def parse_arguments():
         help='Open to the GitHub Commits page (for master branch)')
     subpage.add_argument('-i', '--issues', dest='issues', action='store_true',
         help='Open to the GitHub issues page')
+    subpage.add_argument('-p', '--pulls', dest='pulls', action='store_true',
+        help='Open to the GitHub pull requests page')
     parser.add_argument('-t', '--test', dest='test', action='store_true',
         help='Print out the url instead of browsing to it')
     return parser.parse_args()
@@ -96,6 +98,9 @@ def main():
 
             if args.issues:
                 url = base_url + '/issues/'
+
+            if args.pulls:
+                url = base_url + '/pulls/'
 
             if args.commits:
                 url = base_url + '/commits/%s' % branch
