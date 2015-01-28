@@ -17,6 +17,10 @@ To go directly to the issues page:
 
     $ git-open -i
 
+To go directly to the pull requests page:
+
+    $ git-open -p
+
 To view all commands:
 
     $ git-open --help
