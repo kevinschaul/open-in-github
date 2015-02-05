@@ -111,8 +111,11 @@ def main():
                 url = base_url + '/commits/%s' % branch
 
             if args.path:
-                project_path = os.path.relpath(args.path, project_root)
-                path = os.path.basename(project_path)
+                real_path = os.path.realpath(args.path)
+                project_path = os.path.relpath(real_path, project_root)
+
+                # Trim off the first item, which is the project's directory
+                path = os.path.sep.join(project_path.split(os.path.sep)[1:])
                 posix_path = path.replace(os.path.sep, posixpath.sep)
                 url = base_url + '/tree/%s' % branch + '/' + posix_path
 
