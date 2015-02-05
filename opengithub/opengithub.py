@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import posixpath
 import re
 import subprocess
 import sys
@@ -18,6 +19,8 @@ def parse_arguments():
         help='Open to the GitHub pull requests page')
     parser.add_argument('-t', '--test', dest='test', action='store_true',
         help='Print out the url instead of browsing to it')
+    parser.add_argument('path', nargs='?',
+        help='Open to this path in GitHub')
     return parser.parse_args()
 
 def extract_github_address(f):
@@ -76,10 +79,12 @@ def main():
     # to the root.
     current_dir = os.getcwd()
     under_git = False
+    project_root = current_dir
     while not under_git and not os.path.ismount(current_dir):
         git_config_path = os.path.join(current_dir, '.git', 'config')
         under_git = os.path.isfile(git_config_path)
         current_dir = os.path.dirname(current_dir)
+        project_root = current_dir
 
     if not under_git:
         print 'This directory does not appear to be under git versioning.'
@@ -104,6 +109,12 @@ def main():
 
             if args.commits:
                 url = base_url + '/commits/%s' % branch
+
+            if args.path:
+                project_path = os.path.relpath(args.path, project_root)
+                path = os.path.basename(project_path)
+                posix_path = path.replace(os.path.sep, posixpath.sep)
+                url = base_url + '/tree/%s' % branch + '/' + posix_path
 
             if args.test:
                 print 'GitHub url:'
