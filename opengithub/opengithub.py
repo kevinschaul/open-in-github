@@ -34,9 +34,13 @@ def extract_github_address(f):
         if on_github_ssh > 0:
             project_url = line[on_github_ssh + len('git@github.com') + 1:]
             url = 'https://github.com/' + project_url.strip().replace('.git', '')
+            # Break after the first match.
+            break
         elif on_github_http > 0:
             project_url = line[on_github_http + len('https://github.com/'):]
             url = 'https://github.com/' + project_url.strip().replace('.git', '')
+            # Break after the first match.
+            break
     return url
 
 def get_current_branch():
