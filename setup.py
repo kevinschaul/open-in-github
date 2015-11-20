@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='opengithub',
-    version='0.3.2',
+    version='0.3.3',
     author='Kevin Schaul',
     author_email='kevin.schaul@gmail.com',
     url='http://kevin.schaul.io',
@@ -12,7 +12,6 @@ setup(
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
-        'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
