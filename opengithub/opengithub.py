@@ -23,10 +23,9 @@ def parse_arguments():
         help='Open to this path in GitHub')
     return parser.parse_args()
 
-def extract_github_address(f):
+def extract_github_address(git_config):
     url = ''
-    content = f.readlines()
-    for line in content:
+    for line in git_config.split('\n'):
         # These become indices of the substrings, and are only positive when
         # the substring exists.
         on_github_ssh = line.find('git@github.com')
@@ -95,7 +94,8 @@ def main():
         sys.exit(0)
     else:
         with open(git_config_path) as f:
-            base_url = extract_github_address(f)
+            git_config = f.read()
+            base_url = extract_github_address(git_config)
             url = base_url
             branch = get_current_branch()
             if not base_url:
