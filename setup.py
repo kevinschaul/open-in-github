@@ -27,5 +27,6 @@ setup(
             'git-open = opengithub.opengithub:main',
         ],
     },
+    test_suite = 'test.test_opengithub'
 )
 
