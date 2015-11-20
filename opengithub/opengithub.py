@@ -55,7 +55,7 @@ def get_branch_from_git_status_output(stdout):
     Returns the branch given output of the command
     `git status --short --branch`.
     """
-    pattern = r'^## ([a-zA-Z0-9\-_]+)'
+    pattern = r'^## ([a-zA-Z0-9\-_/]+)'
     match = re.match(pattern, stdout)
     if match:
         return match.groups()[0]
